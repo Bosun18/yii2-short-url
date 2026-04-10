@@ -76,7 +76,7 @@ views/
 ### 2. Клонирование проекта
 
 ```bash
-git clone <url-репозитория> yii2-short-url
+git clone https://github.com/Bosun18/yii2-short-url.git
 cd yii2-short-url
 ```
 

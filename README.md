@@ -68,10 +68,18 @@ views/
 
 ### 1. Требования
 
-- PHP 7.4 или выше
-- MySQL 5.7+ / MariaDB 10.3+
-- Composer
+- **PHP** 7.4 или выше — [инструкция по установке](https://www.php.net/manual/ru/install.php)
+- **MySQL** 5.7+ / **MariaDB** 10.3+ — [скачать MySQL](https://dev.mysql.com/downloads/mysql/)
+- **Composer** — менеджер зависимостей PHP — [инструкция по установке](https://getcomposer.org/download/)
 - Расширения PHP: `curl`, `gd` (для QR-кодов), `pdo_mysql`
+
+Проверить, что всё установлено:
+```bash
+php -v              # версия PHP
+composer --version  # версия Composer
+mysql --version     # версия MySQL
+php -m | grep -E "curl|gd|pdo_mysql"  # проверка расширений
+```
 
 ### 2. Клонирование проекта
 
@@ -88,9 +96,19 @@ composer install
 
 ### 4. Создание базы данных
 
+Откройте терминал и подключитесь к MySQL (введите пароль при запросе):
+
+```bash
+mysql -u root -p
+```
+
+Затем выполните SQL-команду:
+
 ```sql
 CREATE DATABASE short_url CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
+
+Для выхода из MySQL введите `exit`.
 
 ### 5. Настройка подключения к БД
 
@@ -135,7 +153,7 @@ php yii serve --port=8080
 
 QR-код содержит короткую ссылку на основе того адреса, через который вы открыли сайт.
 Если открыть сайт через `localhost` — QR будет содержать `localhost`, и телефон не сможет его открыть.
-Ниже описаны два способа сделать QR-код доступным для телефона.
+Ниже описаны три способа сделать QR-код доступным для телефона.
 
 ### Способ 1: Локальная сеть (без установки дополнительных программ)
 
@@ -194,20 +212,20 @@ http://192.168.x.x:8080
 
 > **Важно:** ngrok — зарубежный сервис. Для регистрации и работы может потребоваться **VPN**.
 
-### 1. Регистрация на ngrok
+#### 1. Регистрация на ngrok
 
-1. Перейдите на сайт: https://ngrok.com/
+1. Перейдите на сайт: [https://ngrok.com](https://ngrok.com/)
 2. Нажмите **Sign up** (правый верхний угол)
 3. Зарегистрируйтесь (можно через Google/GitHub аккаунт)
 4. После регистрации вы попадёте в личный кабинет (Dashboard)
 
-### 2. Получение authtoken
+#### 2. Получение authtoken
 
 1. В личном кабинете перейдите в раздел: **Getting Started → Your Authtoken**
-   (прямая ссылка: https://dashboard.ngrok.com/get-started/your-authtoken)
+   (прямая ссылка: [https://dashboard.ngrok.com/get-started/your-authtoken](https://dashboard.ngrok.com/get-started/your-authtoken))
 2. Скопируйте ваш персональный токен (длинная строка вида `2kF9x...`)
 
-### 3. Установка ngrok
+#### 3. Установка ngrok
 
 **macOS (Homebrew):**
 ```bash
@@ -220,9 +238,9 @@ curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok-v3-stable-linux-amd64.tgz |
 ```
 
 **Windows:**
-Скачайте установщик с https://ngrok.com/download и распакуйте.
+Скачайте установщик с [https://ngrok.com/download](https://ngrok.com/download) и распакуйте.
 
-### 4. Авторизация ngrok
+#### 4. Авторизация ngrok
 
 Выполните команду, подставив ваш токен:
 
@@ -230,7 +248,7 @@ curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok-v3-stable-linux-amd64.tgz |
 ngrok config add-authtoken ВАШ_ТОКЕН
 ```
 
-### 5. Запуск туннеля
+#### 5. Запуск туннеля
 
 1. Убедитесь, что dev-сервер запущен:
    ```bash
@@ -249,7 +267,7 @@ ngrok config add-authtoken ВАШ_ТОКЕН
 
 4. Скопируйте публичный URL (например `https://abcdef123.ngrok-free.dev`)
 
-### 6. Проверка QR-кода
+#### 6. Проверка QR-кода
 
 1. Откройте **публичный URL** от ngrok в браузере на компьютере
    (при первом открытии ngrok покажет страницу с кнопкой **«Visit Site»** — нажмите её)

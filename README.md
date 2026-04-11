@@ -16,7 +16,7 @@
 
 ## Стек технологий
 
-- **PHP** 7.4+
+- **PHP** 8.3+
 - **Yii2** (Basic template)
 - **MySQL / MariaDB**
 - **jQuery**
@@ -68,7 +68,7 @@ views/
 
 ### 1. Требования
 
-- **PHP** 7.4 или выше — [инструкция по установке](https://www.php.net/manual/ru/install.php)
+- **PHP** 8.3 или выше — [инструкция по установке](https://www.php.net/manual/ru/install.php)
 - **MySQL** 5.7+ / **MariaDB** 10.3+ — [скачать MySQL](https://dev.mysql.com/downloads/mysql/)
 - **Composer** — менеджер зависимостей PHP — [инструкция по установке](https://getcomposer.org/download/)
 - Расширения PHP: `curl`, `gd` (для QR-кодов), `pdo_mysql`

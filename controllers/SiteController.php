@@ -6,7 +6,7 @@ use yii\web\Controller;
 
 class SiteController extends Controller
 {
-    public function actions()
+    public function actions(): array
     {
         return [
             'error' => [
@@ -15,7 +15,7 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex(): string
     {
         return $this->render('index');
     }

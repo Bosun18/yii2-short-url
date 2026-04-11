@@ -6,26 +6,18 @@ use yii\base\Model;
 
 /**
  * Форма для валидации входного URL при создании короткой ссылки.
- *
- * Почему отдельная модель формы, а не валидация прямо в Url?
- * В Yii2 принято разделять:
- * - Модель формы (ShortenForm) — отвечает за валидацию пользовательского ввода
- * - ActiveRecord модель (Url) — отвечает за работу с БД и бизнес-логику
- *
- * Это позволяет добавлять проверки, специфичные для формы
- * (например, проверку доступности URL), не засоряя модель данных.
  */
 class ShortenForm extends Model
 {
     /** @var string URL, введённый пользователем */
-    public $url;
+    public string $url;
 
     /**
      * Правила валидации:
      * 1. url обязателен — нельзя отправить пустую форму
      * 2. url должен быть валидным URL с протоколом http или https
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['url'], 'required', 'message' => 'Введите URL'],
@@ -36,7 +28,7 @@ class ShortenForm extends Model
     /**
      * Названия полей для отображения в ошибках
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'url' => 'URL',
@@ -59,7 +51,7 @@ class ShortenForm extends Model
      *
      * @return bool true если ресурс доступен
      */
-    public function checkUrlAvailability()
+    public function checkUrlAvailability(): bool
     {
         $ch = curl_init($this->url);
 

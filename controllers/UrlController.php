@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use Random\RandomException;
 use Yii;
+use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\web\NotFoundHttpException;
@@ -36,8 +38,9 @@ class UrlController extends Controller
      * 7. Возвращаем JSON: короткая ссылка + QR в base64
      *
      * @return array JSON-ответ
+     * @throws RandomException|Exception
      */
-    public function actionShorten()
+    public function actionShorten(): array
     {
         // Указываем Yii2, что ответ — JSON
         Yii::$app->response->format = Response::FORMAT_JSON;
@@ -108,9 +111,9 @@ class UrlController extends Controller
      *
      * @param string $code Короткий код из URL
      * @return Response
-     * @throws NotFoundHttpException если код не найден
+     * @throws NotFoundHttpException|Exception если код не найден
      */
-    public function actionRedirect($code)
+    public function actionRedirect(string $code): Response
     {
         // Ищем URL по короткому коду
         $url = Url::findOne(['short_code' => $code]);
@@ -145,7 +148,7 @@ class UrlController extends Controller
      * @param string $data Данные для кодирования в QR (короткая ссылка)
      * @return string QR-код в формате base64 data URI
      */
-    private function generateQrCode($data)
+    private function generateQrCode(string $data): string
     {
         $options = new QROptions([
             // Размер одного модуля (пикселя) QR-кода
@@ -161,6 +164,6 @@ class UrlController extends Controller
         ]);
 
         // render() возвращает data URI: data:image/png;base64,...
-        return (new QRCode($options))->render($data);
+        return new QRCode($options)->render($data);
     }
 }

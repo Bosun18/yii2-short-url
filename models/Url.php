@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Random\RandomException;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -16,6 +17,7 @@ use yii\db\ActiveRecord;
  * @property string $created_at Дата создания
  * @property string $updated_at Дата обновления
  *
+ * @property-read string $shortUrl
  * @property UrlVisit[] $visits Логи переходов
  */
 class Url extends ActiveRecord
@@ -24,16 +26,16 @@ class Url extends ActiveRecord
      * Символы для генерации короткого кода.
      * a-z, A-Z, 0-9 = 62 символа. При длине кода 6 символов = 62^6 ≈ 56 млрд комбинаций.
      */
-    private const CODE_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    private const string CODE_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
     /** Длина генерируемого короткого кода */
-    private const CODE_LENGTH = 6;
+    private const int CODE_LENGTH = 6;
 
     /**
      * {@inheritdoc}
      * Название таблицы в БД
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%url}}';
     }
@@ -45,7 +47,7 @@ class Url extends ActiveRecord
      * - short_code уникален в таблице
      * - clicks_count — целое число
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             // Оригинальный URL — обязательное поле
@@ -62,7 +64,7 @@ class Url extends ActiveRecord
     /**
      * Названия полей (для отображения в формах и ошибках)
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -81,7 +83,7 @@ class Url extends ActiveRecord
      * - При создании новой записи ($this->isNewRecord) — заполняем оба поля
      * - При обновлении — только updated_at
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             $now = date('Y-m-d H:i:s');
@@ -98,7 +100,7 @@ class Url extends ActiveRecord
      * Связь: у одного URL может быть много переходов (логов).
      * Используется для получения всех визитов: $url->visits
      */
-    public function getVisits()
+    public function getVisits(): \yii\db\ActiveQuery
     {
         return $this->hasMany(UrlVisit::class, ['url_id' => 'id']);
     }
@@ -112,8 +114,9 @@ class Url extends ActiveRecord
      * 3. Если код уже занят — генерируем заново (вероятность коллизии крайне мала)
      *
      * Используем random_int() вместо rand() — криптографически безопасный генератор.
+     * @throws RandomException
      */
-    public function generateShortCode()
+    public function generateShortCode(): void
     {
         $chars = self::CODE_CHARS;
         $length = self::CODE_LENGTH;
@@ -132,7 +135,7 @@ class Url extends ActiveRecord
      * Формирует полную короткую ссылку (с доменом).
      * Например: http://localhost:8080/AbCdEf
      */
-    public function getShortUrl()
+    public function getShortUrl(): string
     {
         return Yii::$app->request->hostInfo . '/' . $this->short_code;
     }

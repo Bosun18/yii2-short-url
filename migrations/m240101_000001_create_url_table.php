@@ -15,7 +15,7 @@ class m240101_000001_create_url_table extends Migration
      * - clicks_count: счётчик переходов по короткой ссылке
      * - created_at, updated_at: временные метки
      */
-    public function safeUp()
+    public function safeUp(): void
     {
         $this->createTable('{{%url}}', [
             'id' => $this->primaryKey(),
@@ -38,7 +38,7 @@ class m240101_000001_create_url_table extends Migration
     /**
      * Откат миграции — удаляет таблицу url
      */
-    public function safeDown()
+    public function safeDown(): void
     {
         $this->dropTable('{{%url}}');
     }

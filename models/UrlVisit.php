@@ -23,7 +23,7 @@ class UrlVisit extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%url_visit}}';
     }
@@ -31,7 +31,7 @@ class UrlVisit extends ActiveRecord
     /**
      * Правила валидации
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['url_id', 'ip_address', 'visited_at'], 'required'],
@@ -46,7 +46,7 @@ class UrlVisit extends ActiveRecord
     /**
      * Названия полей
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -60,7 +60,7 @@ class UrlVisit extends ActiveRecord
      * Связь: каждый лог принадлежит одному URL.
      * Используется для получения оригинального URL: $visit->url
      */
-    public function getUrl()
+    public function getUrl(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Url::class, ['id' => 'url_id']);
     }

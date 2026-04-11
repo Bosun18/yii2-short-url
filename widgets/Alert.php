@@ -42,13 +42,13 @@ class Alert extends \yii\bootstrap5\Widget
      * @var array the options for rendering the close button tag.
      * Array will be passed to [[\yii\bootstrap\Alert::closeButton]].
      */
-    public $closeButton = [];
+    public array $closeButton = [];
 
 
     /**
      * {@inheritdoc}
      */
-    public function run()
+    public function run(): void
     {
         $session = Yii::$app->session;
         $appendClass = isset($this->options['class']) ? ' ' . $this->options['class'] : '';

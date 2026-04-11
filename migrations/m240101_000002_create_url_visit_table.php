@@ -14,7 +14,7 @@ class m240101_000002_create_url_visit_table extends Migration
      * - ip_address: IP-адрес посетителя (поддерживает IPv6 — до 45 символов)
      * - visited_at: время перехода
      */
-    public function safeUp()
+    public function safeUp(): void
     {
         $this->createTable('{{%url_visit}}', [
             'id' => $this->primaryKey(),
@@ -43,7 +43,7 @@ class m240101_000002_create_url_visit_table extends Migration
     /**
      * Откат миграции — удаляет таблицу url_visit
      */
-    public function safeDown()
+    public function safeDown(): void
     {
         $this->dropTable('{{%url_visit}}');
     }

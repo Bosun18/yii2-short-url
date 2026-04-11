@@ -26,10 +26,10 @@ class Url extends ActiveRecord
      * Символы для генерации короткого кода.
      * a-z, A-Z, 0-9 = 62 символа. При длине кода 6 символов = 62^6 ≈ 56 млрд комбинаций.
      */
-    private const string CODE_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    private const CODE_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
     /** Длина генерируемого короткого кода */
-    private const int CODE_LENGTH = 6;
+    private const CODE_LENGTH = 6;
 
     /**
      * {@inheritdoc}

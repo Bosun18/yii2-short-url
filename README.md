@@ -112,7 +112,19 @@ CREATE DATABASE short_url CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 ### 5. Настройка подключения к БД
 
-Отредактируйте файл `config/db.php`:
+Файл `config/db.php` не входит в репозиторий (он содержит пароль). Нужно создать его из шаблона.
+
+**macOS / Linux:**
+```bash
+cp config/db.php.example config/db.php
+```
+
+**Windows:**
+```cmd
+copy config\db.php.example config\db.php
+```
+
+Затем откройте созданный файл `config/db.php` в любом текстовом редакторе (например, Блокнот) и укажите свои данные:
 
 ```php
 return [

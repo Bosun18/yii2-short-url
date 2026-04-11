@@ -38,6 +38,9 @@ tests/_support/_generated
 # runtime files (cache, logs)
 /runtime
 
+# local database config (contains credentials)
+/config/db.php
+
 # compiled assets
 /web/assets/*
 !/web/assets/.gitkeep
